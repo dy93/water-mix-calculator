@@ -1,0 +1,15 @@
+{
+  "name": "Water Mix Calculator",
+  "short_name": "Water Mix Calculator",
+  "lang": "en-US",
+  "description": "Water Mix Calculator, calculate the volume of hot and cold water to mix to achieve a desired temperature.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import { defineConfig } from '@rspack/cli';
 import { rspack, type SwcLoaderOptions } from '@rspack/core';
 import { ReactRefreshRspackPlugin } from '@rspack/plugin-react-refresh';
+import { GenerateSW } from '@aaroon/workbox-rspack-plugin';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -18,7 +19,7 @@ export default defineConfig({
     rules: [
       {
         test: /\.svg$/,
-        type: 'asset',
+        type: 'asset/resource',
       },
       {
         test: /\.(jsx?|tsx?)$/,
@@ -48,9 +49,26 @@ export default defineConfig({
   },
   plugins: [
     new rspack.HtmlRspackPlugin({
+      title: 'Water Mix Calculator',
       template: './index.html',
     }),
     isDev ? new ReactRefreshRspackPlugin() : null,
+    new GenerateSW({
+      mode: 'development',
+      maximumFileSizeToCacheInBytes: 5000000,
+    }),
+    new rspack.CopyRspackPlugin({
+      patterns: [
+        {
+          from: 'icon.svg',
+          to: 'icon.svg',
+        },
+        {
+          from: 'manifest.json',
+          to: 'manifest.json',
+        },
+      ],
+    }),
   ],
   optimization: {
     minimizer: [
